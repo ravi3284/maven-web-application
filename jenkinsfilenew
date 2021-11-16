@@ -1,0 +1,53 @@
+pipeline{
+    
+  agent any
+  
+  tools{
+   maven "maven3.6.3"
+  }
+  
+  triggers{
+      properties([pipelineTriggers([pollSCM('* * * * * ')])])
+  }
+  
+  stages{
+      
+      stage("code checkout"){
+          
+        steps{ git branch: 'maven', credentialsId: 'gitid', url: 'https://github.com/ravi3284/Git-practice.git'
+            
+            
+        }  
+          
+      }
+      
+      stage("build code"){
+          
+          steps{ sh "mvn clean package"
+              
+          }
+      }
+      
+      stage("deploy to tomcat"){
+          
+          steps{
+          sshagent(['3f7ce53c-55e4-4938-896c-710b8009a977']) {
+              sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.108.196.128:/opt/apache-tomcat-9.0.54/webapps/"
+              
+          }
+       }
+          
+      }
+      
+      stage("sendemailnotification"){
+          steps{
+              emailext body: '''build is over!!
+
+               to,
+               ravi''', subject: 'build is over', to: 'umetravi@gmail.com'
+              
+          }
+      }
+      
+  }
+}
