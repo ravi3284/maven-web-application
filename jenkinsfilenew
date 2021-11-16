@@ -12,7 +12,7 @@ pipeline{
   
   stages{
       
-      stage("code checkout"){
+      stage("code checkout11"){
           
         steps{ git branch: 'maven', credentialsId: 'gitid', url: 'https://github.com/ravi3284/Git-practice.git'
             
