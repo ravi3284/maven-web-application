@@ -7,7 +7,7 @@ pipeline{
   }
   
   triggers{
-      properties([pipelineTriggers([pollSCM('* * * * * ')])])
+      Poll SCM pollSCM('* * * * *')
   }
   
   stages{
