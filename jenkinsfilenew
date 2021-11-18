@@ -5,6 +5,10 @@ pipeline{
   tools{
    maven "maven3.6.3"
   }
+  
+  options{
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '2', daysToKeepStr: '1', numToKeepStr: '3')), [$class: 'JobLocalConfiguration', changeReasonComment: '']
+  }
     
   stages{
       
