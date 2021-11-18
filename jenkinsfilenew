@@ -9,7 +9,7 @@ pipeline{
   options{
     buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3'))
     disableConcurrentBuilds()
-    disableResume(), [$class: 'JobLocalConfiguration', changeReasonComment: ''])
+    
   }
     
   stages{
